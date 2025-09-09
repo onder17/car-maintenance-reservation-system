@@ -1,4 +1,4 @@
-# 🚗 Araç Rezervasyon Sistemi
+# 🚗 Araç Bakım Rezervasyon Sistemi
 
 Bu proje **Java Spring Boot Framework** kullanılarak geliştirilmiştir.  
 Kullanıcılar veya firmalar, bakım/tamir yapılacak araçların rezervasyon kayıtlarını kolayca yönetebilir.  
