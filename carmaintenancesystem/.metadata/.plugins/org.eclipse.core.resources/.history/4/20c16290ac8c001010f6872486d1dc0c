@@ -1,0 +1,70 @@
+package com.grkmonder.reservationsystem.business.concretes;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.grkmonder.reservationsystem.business.abstracts.CarService;
+import com.grkmonder.reservationsystem.business.requests.CreateReservationRequest;
+import com.grkmonder.reservationsystem.business.requests.UpdateReservationRequest;
+import com.grkmonder.reservationsystem.business.responses.GetAllCarResponse;
+import com.grkmonder.reservationsystem.business.responses.GetByIdCarResponse;
+import com.grkmonder.reservationsystem.business.rules.CarBusinessRules;
+import com.grkmonder.reservationsystem.core.utilities.mappers.ModelMapperService;
+import com.grkmonder.reservationsystem.dataAccess.abstracts.CarRepository;
+import com.grkmonder.reservationsystem.entities.concretes.Car;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class CarManager implements CarService {
+	private CarRepository carRepository;
+	private ModelMapperService modelMapperService;
+	private CarBusinessRules carBusinessRules;
+	
+	
+	@Override
+	public List<GetAllCarResponse> getAllCars() {
+		List<Car> cars  = carRepository.findAll();
+		
+		List<GetAllCarResponse> carsResponse = cars.stream()
+				.map(car->this.modelMapperService.forResponse().map(car, GetAllCarResponse.class)).collect(Collectors.toList());
+		
+				return carsResponse;
+	}
+
+	
+	@Override
+	public GetByIdCarResponse getCarById(int id) {
+		Car car = this.carRepository.findById(id).orElseThrow();
+		
+		GetByIdCarResponse response
+		= this.modelMapperService.forResponse().map(car, GetByIdCarResponse.class);
+		
+		return response;
+	}
+	
+
+	@Override
+	public void add(CreateReservationRequest createReservationRequest) {
+		
+		
+	}
+
+	
+	@Override
+	public void update(UpdateReservationRequest updateReservationRequest) {
+		Car car = this.modelMapperService.forRequest().map(updateReservationRequest, Car.class);
+		this.carRepository.save(car);
+		
+	}
+
+	@Override
+	public void delete(int id) {
+		this.carRepository.deleteById(id);
+		
+	}
+
+}

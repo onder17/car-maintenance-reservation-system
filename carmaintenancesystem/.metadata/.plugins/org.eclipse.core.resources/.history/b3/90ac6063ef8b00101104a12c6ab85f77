@@ -1,0 +1,5 @@
+package com.grkmonder.reservationsystem.business.concretes;
+
+public class CarManager {
+
+}

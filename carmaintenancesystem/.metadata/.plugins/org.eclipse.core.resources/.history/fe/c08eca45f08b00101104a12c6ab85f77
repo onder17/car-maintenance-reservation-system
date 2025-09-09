@@ -1,0 +1,5 @@
+package com.grkmonder.reservationsystem.core.utilities.mappers;
+
+public interface ModelMapperService {
+
+}

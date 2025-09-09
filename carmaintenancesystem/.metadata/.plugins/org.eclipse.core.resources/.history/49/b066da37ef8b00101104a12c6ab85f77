@@ -1,0 +1,11 @@
+package com.grkmonder.reservationsystem.business.abstracts;
+import java.util.List;
+import com.grkmonder.reservationsystem.business.responses.GetAllCarResponse;
+
+
+
+public interface CarService {
+	List<GetAllCarResponse> getAllCars();
+	
+
+}

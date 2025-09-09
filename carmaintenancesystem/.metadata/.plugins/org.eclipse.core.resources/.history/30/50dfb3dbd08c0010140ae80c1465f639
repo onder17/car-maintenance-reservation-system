@@ -1,0 +1,98 @@
+package com.grkmonder.reservationsystem.business.concretes;
+
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.grkmonder.reservationsystem.business.abstracts.CarService;
+import com.grkmonder.reservationsystem.business.requests.CreateReservationRequest;
+import com.grkmonder.reservationsystem.business.requests.UpdateReservationRequest;
+import com.grkmonder.reservationsystem.business.responses.GetAllCarResponse;
+import com.grkmonder.reservationsystem.business.responses.GetByIdCarResponse;
+import com.grkmonder.reservationsystem.business.rules.CarBusinessRules;
+import com.grkmonder.reservationsystem.core.utilities.exceptions.CarNotFoundException;
+import com.grkmonder.reservationsystem.core.utilities.mappers.ModelMapperService;
+import com.grkmonder.reservationsystem.dataAccess.abstracts.CarRepository;
+import com.grkmonder.reservationsystem.entities.concretes.Car;
+
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class CarManager implements CarService {
+	private CarRepository carRepository;
+	private ModelMapperService modelMapperService;
+	private CarBusinessRules carBusinessRules;
+	
+	
+	@Override
+	public List<GetAllCarResponse> getAllCars() {
+	    List<Car> cars = carRepository.findAll();
+
+	    return cars.stream()
+	            .map(car -> {
+	                GetAllCarResponse dto = modelMapperService.forResponse()
+	                        .map(car, GetAllCarResponse.class);
+	                
+	                // Date -> String dönüşümü
+	                if (car.getReservationTimes() != null) {
+	                    dto.setReservationTimes(
+	                        car.getReservationTimes().stream()
+	                            .map(LocalDateTime::toString)
+	                            .collect(Collectors.toList())
+	                    );
+	                }
+	                return dto;
+	            })
+	            .collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional
+	public GetByIdCarResponse getCarById(int id) {
+	    Car car = carRepository.findById(id)
+	            .orElseThrow(() -> new CarNotFoundException(id + " numaralı araç bulunamadı."));
+
+	    GetByIdCarResponse dto = modelMapperService.forResponse().map(car, GetByIdCarResponse.class);
+
+	    if (car.getReservationTimes() != null) {
+	        dto.setReservationTimes(
+	            car.getReservationTimes().stream()
+	                .map(LocalDateTime::toString)
+	                .collect(Collectors.toList())
+	        );
+	    }
+
+	    return dto;
+	}
+
+	
+
+	@Override
+	public void add(CreateReservationRequest createReservationRequest) {
+		this.carBusinessRules.checkIfCarPlateExists(createReservationRequest.getPlate());
+		
+		Car car = this.modelMapperService.forRequest().map(createReservationRequest, Car.class);
+		
+		this.carRepository.save(car);		
+	}
+
+	
+	@Override
+	public void update(UpdateReservationRequest updateReservationRequest) {
+		Car car = this.modelMapperService.forRequest().map(updateReservationRequest, Car.class);
+		this.carRepository.save(car);
+		
+	}
+
+	@Override
+	public void delete(int id) {
+		this.carRepository.deleteById(id);
+		
+	}
+
+}

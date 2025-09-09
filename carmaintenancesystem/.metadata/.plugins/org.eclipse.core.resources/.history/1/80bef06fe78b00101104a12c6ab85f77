@@ -1,0 +1,5 @@
+package com.grkmonder.reservationsystem.dataAccess.abstracts;
+
+public interface CarRepository {
+
+}

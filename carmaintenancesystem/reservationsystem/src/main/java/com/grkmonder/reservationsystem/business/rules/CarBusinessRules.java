@@ -1,0 +1,22 @@
+package com.grkmonder.reservationsystem.business.rules;
+
+import org.springframework.stereotype.Service;
+
+import com.grkmonder.reservationsystem.core.utilities.exceptions.BusinessException;
+import com.grkmonder.reservationsystem.dataAccess.abstracts.CarRepository;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+@Service
+public class CarBusinessRules {
+	private CarRepository carRepository;
+	
+	public void checkIfCarPlateExists(String plate) {
+		if(this.carRepository.existsByPlate(plate)) {
+			throw new BusinessException("This car already exists!");
+		}
+	}
+	
+
+}

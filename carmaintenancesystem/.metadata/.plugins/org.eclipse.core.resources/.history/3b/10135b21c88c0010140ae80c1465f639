@@ -1,0 +1,58 @@
+package com.grkmonder.reservationsystem.business.requests;
+
+
+import java.time.LocalDateTime;
+
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UpdateReservationRequest {
+ 	@NotNull(message = "Araç ID alanı boş olamaz")
+	private int id;
+	
+	
+ 	@NotBlank(message = "Araç adı boş olamaz")
+    private String name;
+
+    
+ 	@NotBlank(message = "Plaka boş olamaz")
+    private String plate;
+
+    
+ 	@Min(value = 1900, message = "Model yılı geçersiz")
+    private int modelYear;
+    
+    
+ 	@NotBlank(message = "Araç sahibi adı boş olamaz")
+    private String carOwner;
+    
+    
+ 	@NotBlank(message = "Araç bakım rezervasyonu ile ilgili detaylar boş olamaz.")
+    private String description;
+    
+    
+ 	@NotBlank(message = "Araç fotoğrafı yüklenmelidir")
+    private String imageUrl;
+
+    
+ 	@NotBlank(message = "Vergi numarası boş olamaz")
+    @Size(min = 11, max = 11, message = "Vergi numarası 11 haneli olmalıdır")
+    @Pattern(regexp = "\\d+", message = "Vergi numarası sadece rakamlardan oluşmalıdır")
+    private String taxNum;
+    
+    
+ 	@NotNull(message = "Rezervasyon zamanı gerekli")
+    @Future(message = "Rezervasyon zamanı gelecekte olmalı")
+    private LocalDateTime reservationTime;
+
+}

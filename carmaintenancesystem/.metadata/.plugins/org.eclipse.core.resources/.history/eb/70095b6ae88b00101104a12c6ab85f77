@@ -1,0 +1,5 @@
+package com.grkmonder.reservationsystem.business.abstracts;
+
+public interface CarService {
+
+}

@@ -1,0 +1,47 @@
+package com.grkmonder.reservationsystem.business.concretes;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.grkmonder.reservationsystem.business.abstracts.CarService;
+import com.grkmonder.reservationsystem.business.requests.CreateReservationRequest;
+import com.grkmonder.reservationsystem.business.requests.UpdateReservationRequest;
+import com.grkmonder.reservationsystem.business.responses.GetAllCarResponse;
+import com.grkmonder.reservationsystem.business.responses.GetByIdCarResponse;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public class CarManager implements CarService {@Override
+	public List<GetAllCarResponse> getAllCars() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public GetByIdCarResponse getCarById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void add(CreateReservationRequest createReservationRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(UpdateReservationRequest updateReservationRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

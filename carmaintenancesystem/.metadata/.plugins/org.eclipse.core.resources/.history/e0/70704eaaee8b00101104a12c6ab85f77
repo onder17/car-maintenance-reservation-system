@@ -1,0 +1,11 @@
+package com.grkmonder.reservationsystem.business.abstracts;
+
+import org.springframework.stereotype.Service;
+
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
+public interface CarService {
+
+}

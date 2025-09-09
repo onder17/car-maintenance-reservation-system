@@ -1,0 +1,59 @@
+package com.grkmonder.reservationsystem.webApi.controllers;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.grkmonder.reservationsystem.business.abstracts.CarService;
+import com.grkmonder.reservationsystem.business.requests.CreateReservationRequest;
+import com.grkmonder.reservationsystem.business.requests.UpdateReservationRequest;
+import com.grkmonder.reservationsystem.business.responses.GetAllCarResponse;
+import com.grkmonder.reservationsystem.business.responses.GetByIdCarResponse;
+
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+
+@RestController
+@RequestMapping("/api/reservations")
+@AllArgsConstructor
+public class CarsController {
+	
+	private CarService carService;
+	
+	@GetMapping
+	public List<GetAllCarResponse> getAllCars() {
+	    // Servis katmanı zaten tüm işi yaptığı için sadece çağırıp döndürüyoruz.
+	    return carService.getAllCars();
+	}
+
+	@GetMapping("/{id}")
+	public GetByIdCarResponse getCarById(@PathVariable int id) {
+	    // Aynı şekilde, sadece çağırıp DTO nesnesini döndürüyoruz.
+	    return carService.getCarById(id);
+	}
+
+	@PostMapping()
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public void add(@RequestBody @Valid() CreateReservationRequest createReservationRequest) {
+		this.carService.add(createReservationRequest);
+	}
+	
+	@PutMapping
+	public void update(@RequestBody UpdateReservationRequest updateReservationRequest) {
+		this.carService.update(updateReservationRequest);
+	}
+	
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable int id) {
+		this.carService.delete(id);
+	}
+}

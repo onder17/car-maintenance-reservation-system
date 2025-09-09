@@ -1,0 +1,5 @@
+package com.grkmonder.reservationsystem.business.responses;
+
+public class GetAllCarResponse {
+
+}

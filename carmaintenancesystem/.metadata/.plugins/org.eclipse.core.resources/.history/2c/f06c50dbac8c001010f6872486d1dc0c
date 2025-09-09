@@ -1,0 +1,5 @@
+package com.grkmonder.reservationsystem.business.rules;
+
+public class CarBusinessRules {
+
+}
