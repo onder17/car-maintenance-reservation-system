@@ -1,19 +1,19 @@
-# 🚗 Araç Bakım Rezervasyon Sistemi
+# 🚗 Vehicle Maintenance Reservation System
 
-Bu proje **Java Spring Boot Framework** kullanılarak geliştirilmiştir.  
-Kullanıcılar veya firmalar, bakım/tamir yapılacak araçların rezervasyon kayıtlarını kolayca yönetebilir.  
-
----
-
-## 📌 Özellikler
-- Araç bilgileri **`Car.java`** sınıfı üzerinden tutulur.  
-- Bir araç için **birden fazla rezervasyon zamanı** kaydedilebilir.  
-- **PostgreSQL** veritabanı kullanılmıştır.  
-- Temel **CRUD (Create, Read, Update, Delete)** işlemleri desteklenmektedir.  
+This project is developed using the **Java Spring Boot Framework**.  
+It allows users or companies to easily manage reservation records for vehicle maintenance and repair.  
 
 ---
 
-## 🛠️ Kullanılan Teknolojiler
+## 📌 Features
+- Vehicle details are stored in the **`Car.java`** class.  
+- Multiple reservation times can be recorded for a single vehicle.  
+- **PostgreSQL** is used as the database.  
+- Supports basic **CRUD (Create, Read, Update, Delete)** operations.  
+
+---
+
+## 🛠️ Tech Stack
 - **Java 17+**
 - **Spring Boot**
 - **PostgreSQL**
